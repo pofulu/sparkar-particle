@@ -1,6 +1,6 @@
 # Particle
 
-A wrapped emitter function to replace `ParticleTool`.
+A wrapped emitter function to replace `ParticleTool`. This module depends on [`PFTween`](https://bitbucket.org/rumu-inno/sparkar-pftween/src/master/).
 
 
 
