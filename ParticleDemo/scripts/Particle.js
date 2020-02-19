@@ -89,7 +89,7 @@ export class Particle {
      */
     setScaleout(ease = Ease.easeInCubic) {
         if (this.emitter.scaleDelta.pinLastValue() != 0) {
-            Diagnostics.log('Please note that the particle will not scale out perfectly if its "scale delta" is not "0"');
+            Diagnostics.log(`The particle "${this.emitter.name}" will not scale out perfectly if its "scale delta" is not "0"`);
         }
         this.modiyScale(0, this.emitter.scale.mul(this.emitter.scaleDelta.add(1)).neg().pinLastValue(), ease);
         return this;
