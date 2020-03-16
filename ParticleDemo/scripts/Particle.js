@@ -106,18 +106,31 @@ export class Particle {
     /**
      * @param {ScalarSignal | Number=} birthrate 
      * @param {number} duration 
+     * @returns {Promise<void>}
      */
     burst(birthrate = 200, duration = 100) {
         if (this.burstSubscription) {
             this.burstSubscription.unsubscribe();
+            if (this.cancellation)
+                this.cancellation();
         }
 
-        this.start(birthrate);
-        this.burstSubscription = Time.setTimeout(() => this.stop(), duration);
+        return new Promise((resolve, reject) => {
+            this.start(birthrate);
+
+            this.burstSubscription = Time.setTimeout(() => {
+                this.stop();
+                resolve();
+            }, duration);
+
+            this.cancellation = () => {
+                reject('you called burst when bursting, it is fine, just a hint');
+            }
+        });
     }
 
     /**
-     * @param {ScalarSignal | Number} birthrate 
+     * @param {ScalarSignal | Number} birthrate
      */
     start(birthrate) {
         if (this.burstSubscription) {
@@ -125,13 +138,17 @@ export class Particle {
         }
 
         this.emitter.birthrate = birthrate;
+        
+        return this;
     }
 
     stop() {
         if (this.burstSubscription) {
             this.burstSubscription.unsubscribe();
         }
-        
+
         this.emitter.birthrate = 0;
+
+        return this;
     }
 }
