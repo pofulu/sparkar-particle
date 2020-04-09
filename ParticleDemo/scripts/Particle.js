@@ -6,6 +6,7 @@ const Animation = require('Animation');
 const Time = require('Time');
 const Scene = require('Scene');
 const Diagnostics = require('Diagnostics');
+const Reactive = require('Reactive');
 
 class ParticleHSVAModifier {
     constructor() {
@@ -20,6 +21,29 @@ class ParticleHSVAModifier {
     }
 }
 
+class ParticleHSVA {
+    constructor() {
+        this.hue = 1;
+        this.saturation = 1;
+        this.value = 1;
+        this.alpha = 1;
+
+        this.hueDelta = 1;
+        this.saturationDelta = 1;
+        this.valueDelta = 1;
+        this.alphaDelta = 1;
+    }
+
+    static setHSVA(emitter, color) {
+        const colorSignal = Reactive.HSVA(color.hue, color.saturation, color.value, color.alpha);
+        const colorSignalDelta = Reactive.HSVA(color.hueDelta, color.saturationDelta, color.valueDelta, color.alphaDelta);
+
+        emitter.colorModulationHSVA = colorSignal;
+        emitter.colorModulationHSVADelta = colorSignalDelta;
+    }
+}
+
+
 export class Particle {
     /**
      * @param {SceneObjectBase} emitter 
@@ -27,6 +51,7 @@ export class Particle {
     constructor(emitter) {
         this.emitter = emitter;
         this.colorModifier = new ParticleHSVAModifier();
+        this.color = new ParticleHSVA();
         this.burstSubscription = undefined;
     }
 
@@ -130,15 +155,58 @@ export class Particle {
     }
 
     /**
-     * @param {ScalarSignal | Number} birthrate
+     * @param {ScalarSignal | Number=} hue
+     * @param {ScalarSignal | Number=} hueDelta
      */
+    setHue(hue, hueDelta = 0) {
+        this.color.hue = hue;
+        this.color.hueDelta = hueDelta;
+        ParticleHSVA.setHSVA(this.emitter, this.color);
+        return this;
+    }
+
+    /**
+     * @param {ScalarSignal | Number=} saturation 
+     * @param {ScalarSignal | Number=} saturationDelta 
+     */
+    setSaturation(saturation, saturationDelta = 0) {
+        this.color.saturation = saturation;
+        this.color.saturationDelta = saturationDelta;
+        ParticleHSVA.setHSVA(this.emitter, this.color);
+        return this;
+    }
+
+    /**
+     * @param {ScalarSignal | Number=} value
+     * @param {ScalarSignal | Number=} value
+     */
+    setValue(value, valueDelta = 0) {
+        this.color.value = value;
+        this.color.valueDelta = valueDelta;
+        ParticleHSVA.setHSVA(this.emitter, this.color);
+        return this;
+    }
+
+    /**
+     * @param {ScalarSignal | Number=} alpha
+     * @param {ScalarSignal | Number=} alphaDelta
+     */
+    setAlpha(alpha, alphaDelta = 0) {
+        this.color.alpha = alpha;
+        this.color.alphaDelta = alphaDelta;
+        ParticleHSVA.setHSVA(this.emitter, this.color);
+        return this;
+    }
+
+    /**
+    * @param {ScalarSignal | Number} birthrate
+    */
     start(birthrate) {
         if (this.burstSubscription) {
             this.burstSubscription.unsubscribe();
         }
 
         this.emitter.birthrate = birthrate;
-        
         return this;
     }
 
@@ -148,7 +216,6 @@ export class Particle {
         }
 
         this.emitter.birthrate = 0;
-
         return this;
     }
 }
