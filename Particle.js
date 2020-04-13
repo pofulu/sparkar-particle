@@ -1,7 +1,6 @@
 // @ts-nocheck
 
-import { Ease } from './PFTween';
-
+const Ease = require('sparkar-pftween').Ease;
 const Animation = require('Animation');
 const Time = require('Time');
 const Scene = require('Scene');

@@ -1,0 +1,31 @@
+{
+  "name": "sparkar-particle",
+  "version": "0.1.0",
+  "description": "A wrapped tool for contolling emitters in SparkAR.",
+  "main": "Particle.js",
+  "author": "Pofu Lu",
+  "keywords": [
+    "sparkar",
+    "particle",
+    "emitter",
+    "pofu"
+  ],
+  "files": [
+    "./Particle.js"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pofulu/sparkar-particle.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pofulu/sparkar-particle/issues"
+  },
+  "homepage": "https://github.com/pofulu/sparkar-particle#readme",
+  "license": "MIT",
+  "dependencies": {
+    "sparkar-pftween": "^1.0.0"
+  }
+}

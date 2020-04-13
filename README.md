@@ -1,24 +1,59 @@
 # Particle
 
-A wrapped emitter function to replace `ParticleTool`. This module depends on [`PFTween`](https://bitbucket.org/rumu-inno/sparkar-pftween/src/master/).
+A wrapped tool for contolling emitters in SparkAR.
+
+
+
+## Install
+
+###Import
+
+0. [Download Particle.js](https://github.com/pofulu/sparkar-particle/ParticleDemo/Particle.js) (Right click and Save as)
+
+1. Drag/Drop or import to Spark AR
+
+2. Import `Particle` module
+
+    ```javascript
+    import { Particle } from './Particle';
+    // Your script...
+    ```
+
+3. You can also [Click Here to Download a Sample Project](https://yehonal.github.io/DownGit/#home?url=https://github.com/pofulu/sparkar-particle/tree/master/ParticleDemo).
+
+### npm
+
+0. Add package with `yarn` or `nmp`
+
+    ```shell
+    yarn add sparkar-particle
+    ```
+
+    ```javascript
+    npm -i sparkar-particle
+    ```
+
+1. Load in the required module
+
+    ```javascript
+    const Particle = require('sparkar-particle').Particle;
+    // Your script...
+    ```
 
 
 
 ## Usage
 
 ```javascript
-import { Particle } from './Particle';
-import { Ease } from './PFTween';
-
 const Scene = require('Scene');
-const emitter0 = Scene.root.find('emitter0');
+const TouchGestures = require('TouchGestures');
 
-const ps = new Particle(emitter0)
-    .setFadeout(Ease.easeInExpo)
-    .setScaleout(Ease.easeInExpo);
-
-ps.stop();
-// ps.burst();
-// ps.start(100);
+Scene.root.findFrist('emitter0').then(em => {
+    const ps = new Particle(emitter0)
+		.setFadeout()
+		.stop();
+    
+    TouchGestures.onTap().subscribe(() => ps.burst())
+});
 ```
 
