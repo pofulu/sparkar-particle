@@ -6,9 +6,9 @@ A wrapped tool for contolling emitters in SparkAR.
 
 ## Install
 
-###Import
+### Import
 
-0. [Download Particle.js](https://github.com/pofulu/sparkar-particle/ParticleDemo/Particle.js) (Right click and Save as)
+0. [Download Particle.js](https://raw.githubusercontent.com/pofulu/sparkar-particle/master/Particle.js) (Right click and Save as)
 
 1. Drag/Drop or import to Spark AR
 
@@ -29,7 +29,7 @@ A wrapped tool for contolling emitters in SparkAR.
     yarn add sparkar-particle
     ```
 
-    ```javascript
+    ```shell
     npm -i sparkar-particle
     ```
 
@@ -50,8 +50,8 @@ const TouchGestures = require('TouchGestures');
 
 Scene.root.findFrist('emitter0').then(em => {
     const ps = new Particle(emitter0)
-		.setFadeout()
-		.stop();
+        .setFadeout()
+        .stop();
     
     TouchGestures.onTap().subscribe(() => ps.burst())
 });
