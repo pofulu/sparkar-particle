@@ -1,6 +1,6 @@
 # Particle
 
-A wrapped tool for contolling emitters in SparkAR.
+A wrapped tool for controlling emitters in SparkAR.
 
 
 
@@ -28,7 +28,7 @@ A wrapped tool for contolling emitters in SparkAR.
     ```shell
     yarn add sparkar-particle
     ```
-
+    or
     ```shell
     npm -i sparkar-particle
     ```
