@@ -8,18 +8,20 @@ A wrapped tool for controlling emitters in SparkAR.
 
 ### Import
 
-0. [Download Particle.js](https://raw.githubusercontent.com/pofulu/sparkar-particle/master/Particle.js) (Right click and Save as)
+0. [Download Particle.js](https://raw.githubusercontent.com/pofulu/sparkar-particle/master/ParticleDemo/scripts/Particle.js) (Right click and Save as)
 
-1. Drag/Drop or import to Spark AR
+1. [Download PFTween.js](https://github.com/pofulu/sparkar-pftween/raw/master/PFTween.js) (Right click and Save as)
 
-2. Import `Particle` module
+2. Drag/Drop or import them to Spark AR
+
+3. Import `Particle` module
 
     ```javascript
     import { Particle } from './Particle';
     // Your script...
     ```
 
-3. You can also [Click Here to Download a Sample Project](https://yehonal.github.io/DownGit/#home?url=https://github.com/pofulu/sparkar-particle/tree/master/ParticleDemo).
+4. You can also [Click Here to Download a Sample Project](https://yehonal.github.io/DownGit/#home?url=https://github.com/pofulu/sparkar-particle/tree/master/ParticleDemo).
 
 ### npm
 
