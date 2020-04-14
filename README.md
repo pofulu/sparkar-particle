@@ -23,7 +23,7 @@ A wrapped tool for controlling emitters in SparkAR.
 
 ### npm
 
-0. Add package with `yarn` or `nmp`
+0. Add package with `yarn` or `npm`
 
     ```shell
     yarn add sparkar-particle
