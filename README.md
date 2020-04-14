@@ -30,7 +30,7 @@ A wrapped tool for controlling emitters in SparkAR.
     ```
     or
     ```shell
-    npm -i sparkar-particle
+    npm i sparkar-particle
     ```
 
 1. Load in the required module
