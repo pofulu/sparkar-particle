@@ -35,10 +35,10 @@ A wrapped tool for controlling emitters in SparkAR.
     npm i sparkar-particle
     ```
 
-1. Load in the required module
+1. Import `Particle` module
 
     ```javascript
-    const Particle = require('sparkar-particle').Particle;
+    import { Particle } from 'sparkar-particle';
     // Your script...
     ```
 
