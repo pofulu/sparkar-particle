@@ -1,6 +1,6 @@
 {
   "name": "sparkar-particle",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A wrapped tool for contolling emitters in SparkAR.",
   "main": "Particle.js",
   "author": "Pofu Lu",
