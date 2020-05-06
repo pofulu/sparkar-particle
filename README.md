@@ -49,15 +49,14 @@ A wrapped tool for controlling emitters in SparkAR.
 ```javascript
 import { Particle } from './Particle';
 
-const Scene = require('Scene');
 const TouchGestures = require('TouchGestures');
 
-Scene.root.findFirst('emitter0').then(em => {
-    const ps = new Particle(em)
-        .setFadeout()
-        .stop();
+const ps = Particle.findFirst('emitter0').setFadeout().stop();
+//or
+//const ps = Particle.findAll('emitter0').setFadeout().stop();
+//or
+//const ps = Particle.findByPath('**/emitter0').setFadeout().stop();
     
-    TouchGestures.onTap().subscribe(() => ps.burst())
-});
+TouchGestures.onTap().subscribe(() => ps.burst())
 ```
 
