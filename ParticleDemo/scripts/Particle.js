@@ -48,6 +48,9 @@ export class Particle {
      * @param {SceneObjectBase} emitter 
      */
     constructor(emitter) {
+        if (emitter == undefined) {
+            return undefined;
+        }
         this.emitter = emitter;
         this.colorModifier = new ParticleHSVAModifier();
         this.color = new ParticleHSVA();
@@ -215,6 +218,486 @@ export class Particle {
         }
 
         this.emitter.birthrate = 0;
+        return this;
+    }
+}
+
+Particle.findByPath = class {
+    constructor(emitterPath) {
+        this.emittersPromise = Scene.root.findByPath(emitterPath);
+        this.particlesPromise = this.emittersPromise.then(emitters => this.particles = emitters.map(em => new Particle(em)));
+    }
+
+    /**
+     * @param {number} begin 
+     * @param {number} end 
+     * @param {{(begin: number, end: number): ScalarSampler}} ease
+     */
+    modiyHue(begin, end, ease) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.modiyHue(begin, end, ease));
+        });
+        return this;
+    }
+
+    /**
+     * @param {number} begin 
+     * @param {number} end 
+     * @param {{(begin: number, end: number): ScalarSampler}} ease
+     */
+    modiySaturation(begin, end, ease) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.modiySaturation(begin, end, ease));
+        });
+        return this;
+    }
+
+    /**
+     * @param {number} begin 
+     * @param {number} end 
+     * @param {{(begin: number, end: number): ScalarSampler}} ease
+     */
+    modiyValue(begin, end, ease) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.modiyValue(begin, end, ease));
+        });
+        return this;
+    }
+
+    /**
+     * @param {number} begin 
+     * @param {number} end 
+     * @param {{(begin: number, end: number): ScalarSampler}} ease
+     */
+    modiyAlpha(begin, end, ease) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.modiyAlpha(begin, end, ease));
+        });
+        return this;
+    }
+
+    /**
+     * @param {number} from 
+     * @param {number} to 
+     * @param {{(begin: number, end: number): ScalarSampler}} ease
+     */
+    modiyScale(from, to, ease) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.modiyScale(from, to, ease));
+        });
+        return this;
+    }
+
+    /**
+     * @param {{(begin: number, end: number): ScalarSampler}} ease
+     */
+    setScaleout(ease = Ease.easeInCubic) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.setScaleout(ease));
+        });
+        return this;
+    }
+
+    /**
+     * @param {{(begin: number, end: number): ScalarSampler}} ease
+     */
+    setFadeout(ease = Ease.easeInCubic) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.setFadeout(ease));
+        });
+        return this;
+    }
+
+    /**
+     * @param {ScalarSignal | Number=} birthrate 
+     * @param {number} duration 
+     * @returns {Promise<void>}
+     */
+    burst(birthrate = 200, duration = 100) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.burst(birthrate, duration));
+        });
+        return this;
+    }
+
+    /**
+     * @param {ScalarSignal | Number=} hue
+     * @param {ScalarSignal | Number=} hueDelta
+     */
+    setHue(hue, hueDelta = 0) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.setHue(hue, hueDelta));
+        });
+        return this;
+    }
+
+    /**
+     * @param {ScalarSignal | Number=} saturation 
+     * @param {ScalarSignal | Number=} saturationDelta 
+     */
+    setSaturation(saturation, saturationDelta = 0) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.setSaturation(saturation, saturationDelta));
+        });
+        return this;
+    }
+
+    /**
+     * @param {ScalarSignal | Number=} value
+     * @param {ScalarSignal | Number=} value
+     */
+    setValue(value, valueDelta = 0) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.setValue(value, valueDelta));
+        });
+        return this;
+    }
+
+    /**
+     * @param {ScalarSignal | Number=} alpha
+     * @param {ScalarSignal | Number=} alphaDelta
+     */
+    setAlpha(alpha, alphaDelta = 0) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.setAlpha(alpha, alphaDelta));
+        });
+        return this;
+    }
+
+    /**
+    * @param {ScalarSignal | Number} birthrate
+    */
+    start(birthrate) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.start(birthrate));
+        });
+        return this;
+    }
+
+    stop() {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.stop());
+        });
+        return this;
+    }
+}
+
+Particle.findAll = class {
+    constructor(emittersName, recursive = true) {
+        this.emittersPromise = Scene.root.findAll(emittersName, { recursive: recursive })
+        this.particlesPromise = this.emittersPromise.then(emitters => this.particles = emitters.map(em => new Particle(em)));
+    }
+
+    /**
+     * @param {number} begin 
+     * @param {number} end 
+     * @param {{(begin: number, end: number): ScalarSampler}} ease
+     */
+    modiyHue(begin, end, ease) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.modiyHue(begin, end, ease));
+        });
+        return this;
+    }
+
+    /**
+     * @param {number} begin 
+     * @param {number} end 
+     * @param {{(begin: number, end: number): ScalarSampler}} ease
+     */
+    modiySaturation(begin, end, ease) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.modiySaturation(begin, end, ease));
+        });
+        return this;
+    }
+
+    /**
+     * @param {number} begin 
+     * @param {number} end 
+     * @param {{(begin: number, end: number): ScalarSampler}} ease
+     */
+    modiyValue(begin, end, ease) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.modiyValue(begin, end, ease));
+        });
+        return this;
+    }
+
+    /**
+     * @param {number} begin 
+     * @param {number} end 
+     * @param {{(begin: number, end: number): ScalarSampler}} ease
+     */
+    modiyAlpha(begin, end, ease) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.modiyAlpha(begin, end, ease));
+        });
+        return this;
+    }
+
+    /**
+     * @param {number} from 
+     * @param {number} to 
+     * @param {{(begin: number, end: number): ScalarSampler}} ease
+     */
+    modiyScale(from, to, ease) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.modiyScale(from, to, ease));
+        });
+        return this;
+    }
+
+    /**
+     * @param {{(begin: number, end: number): ScalarSampler}} ease
+     */
+    setScaleout(ease = Ease.easeInCubic) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.setScaleout(ease));
+        });
+        return this;
+    }
+
+    /**
+     * @param {{(begin: number, end: number): ScalarSampler}} ease
+     */
+    setFadeout(ease = Ease.easeInCubic) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.setFadeout(ease));
+        });
+        return this;
+    }
+
+    /**
+     * @param {ScalarSignal | Number=} birthrate 
+     * @param {number} duration 
+     * @returns {Promise<void>}
+     */
+    burst(birthrate = 200, duration = 100) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.burst(birthrate, duration));
+        });
+        return this;
+    }
+
+    /**
+     * @param {ScalarSignal | Number=} hue
+     * @param {ScalarSignal | Number=} hueDelta
+     */
+    setHue(hue, hueDelta = 0) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.setHue(hue, hueDelta));
+        });
+        return this;
+    }
+
+    /**
+     * @param {ScalarSignal | Number=} saturation 
+     * @param {ScalarSignal | Number=} saturationDelta 
+     */
+    setSaturation(saturation, saturationDelta = 0) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.setSaturation(saturation, saturationDelta));
+        });
+        return this;
+    }
+
+    /**
+     * @param {ScalarSignal | Number=} value
+     * @param {ScalarSignal | Number=} value
+     */
+    setValue(value, valueDelta = 0) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.setValue(value, valueDelta));
+        });
+        return this;
+    }
+
+    /**
+     * @param {ScalarSignal | Number=} alpha
+     * @param {ScalarSignal | Number=} alphaDelta
+     */
+    setAlpha(alpha, alphaDelta = 0) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.setAlpha(alpha, alphaDelta));
+        });
+        return this;
+    }
+
+    /**
+    * @param {ScalarSignal | Number} birthrate
+    */
+    start(birthrate) {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.start(birthrate));
+        });
+        return this;
+    }
+
+    stop() {
+        this.particlesPromise.then(() => {
+            this.particles.forEach(em => em.stop());
+        });
+        return this;
+    }
+}
+
+Particle.findFirst = class {
+    constructor(emitterName) {
+        this.emitterPromise = Scene.root.findFirst(emitterName);
+        this.particlePromise = this.emitterPromise.then(emitter => this.particle = new Particle(emitter));
+    }
+
+    /**
+     * @param {number} begin 
+     * @param {number} end 
+     * @param {{(begin: number, end: number): ScalarSampler}} ease
+     */
+    modiyHue(begin, end, ease) {
+        this.particlePromise.then(() => {
+            this.particle.modiyHue(begin, end, ease);
+        })
+        return this;
+    }
+
+    /**
+     * @param {number} begin 
+     * @param {number} end 
+     * @param {{(begin: number, end: number): ScalarSampler}} ease
+     */
+    modiySaturation(begin, end, ease) {
+        this.particlePromise.then(() => {
+            this.particle.modiySaturation(begin, end, ease);
+        });
+        return this;
+    }
+
+    /**
+     * @param {number} begin 
+     * @param {number} end 
+     * @param {{(begin: number, end: number): ScalarSampler}} ease
+     */
+    modiyValue(begin, end, ease) {
+        this.particlePromise.then(() => {
+            this.particle.modiyValue(begin, end, ease);
+        });
+        return this;
+    }
+
+    /**
+     * @param {number} begin 
+     * @param {number} end 
+     * @param {{(begin: number, end: number): ScalarSampler}} ease
+     */
+    modiyAlpha(begin, end, ease) {
+        this.particlePromise.then(() => {
+            this.particle.modiyAlpha(begin, end, ease);
+        });
+        return this;
+    }
+
+    /**
+     * @param {number} from 
+     * @param {number} to 
+     * @param {{(begin: number, end: number): ScalarSampler}} ease
+     */
+    modiyScale(from, to, ease) {
+        this.particlePromise.then(() => {
+            this.particle.modiyScale(from, to, ease);
+        });
+        return this;
+    }
+
+    /**
+     * @param {{(begin: number, end: number): ScalarSampler}} ease
+     */
+    setScaleout(ease = Ease.easeInCubic) {
+        this.particlePromise.then(() => {
+            this.particle.setScaleout(ease);
+        });
+        return this;
+    }
+
+    /**
+     * @param {{(begin: number, end: number): ScalarSampler}} ease
+     */
+    setFadeout(ease = Ease.easeInCubic) {
+        this.particlePromise.then(() => {
+            this.particle.setFadeout(ease);
+        });
+        return this;
+    }
+
+    /**
+     * @param {ScalarSignal | Number=} birthrate 
+     * @param {number} duration 
+     * @returns {Promise<void>}
+     */
+    burst(birthrate = 200, duration = 100) {
+        this.particlePromise.then(() => {
+            this.particle.burst(birthrate, duration);
+        });
+        return this;
+    }
+
+    /**
+     * @param {ScalarSignal | Number=} hue
+     * @param {ScalarSignal | Number=} hueDelta
+     */
+    setHue(hue, hueDelta = 0) {
+        this.particlePromise.then(() => {
+            this.particle.setHue(hue, hueDelta);
+        });
+        return this;
+    }
+
+    /**
+     * @param {ScalarSignal | Number=} saturation 
+     * @param {ScalarSignal | Number=} saturationDelta 
+     */
+    setSaturation(saturation, saturationDelta = 0) {
+        this.particlePromise.then(() => {
+            this.particle.setSaturation(saturation, saturationDelta);
+        });
+        return this;
+    }
+
+    /**
+     * @param {ScalarSignal | Number=} value
+     * @param {ScalarSignal | Number=} value
+     */
+    setValue(value, valueDelta = 0) {
+        this.particlePromise.then(() => {
+            this.particle.setValue(value, valueDelta);
+        });
+        return this;
+    }
+
+    /**
+     * @param {ScalarSignal | Number=} alpha
+     * @param {ScalarSignal | Number=} alphaDelta
+     */
+    setAlpha(alpha, alphaDelta = 0) {
+        this.particlePromise.then(() => {
+            this.particle.setAlpha(alpha, alphaDelta);
+        });
+        return this;
+    }
+
+    /**
+    * @param {ScalarSignal | Number} birthrate
+    */
+    start(birthrate) {
+        this.particlePromise.then(() => {
+            this.particle.start(birthrate);
+        });
+        return this;
+    }
+
+    stop() {
+        this.particlePromise.then(() => {
+            this.particle.stop();
+        });
         return this;
     }
 }
