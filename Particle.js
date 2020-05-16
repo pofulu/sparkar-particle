@@ -60,7 +60,7 @@ export class Particle {
      * @param {number} end 
      * @param {{(begin: number, end: number): ScalarSampler}} ease
      */
-    modiyHue(begin, end, ease) {
+    modifyHue(begin, end, ease) {
         this.colorModifier.h = ease(begin, end);
         ParticleHSVAModifier.modifyHSVA(this.emitter, this.colorModifier);
         return this;
@@ -71,7 +71,7 @@ export class Particle {
      * @param {number} end 
      * @param {{(begin: number, end: number): ScalarSampler}} ease
      */
-    modiySaturation(begin, end, ease) {
+    modifySaturation(begin, end, ease) {
         this.colorModifier.s = ease(begin, end);
         ParticleHSVAModifier.modifyHSVA(this.emitter, this.colorModifier);
         return this;
@@ -82,7 +82,7 @@ export class Particle {
      * @param {number} end 
      * @param {{(begin: number, end: number): ScalarSampler}} ease
      */
-    modiyValue(begin, end, ease) {
+    modifyValue(begin, end, ease) {
         this.colorModifier.v = ease(begin, end);
         ParticleHSVAModifier.modifyHSVA(this.emitter, this.colorModifier);
         return this;
@@ -93,7 +93,7 @@ export class Particle {
      * @param {number} end 
      * @param {{(begin: number, end: number): ScalarSampler}} ease
      */
-    modiyAlpha(begin, end, ease) {
+    modifyAlpha(begin, end, ease) {
         this.colorModifier.a = ease(begin, end);
         ParticleHSVAModifier.modifyHSVA(this.emitter, this.colorModifier);
         return this;
@@ -104,7 +104,7 @@ export class Particle {
      * @param {number} to 
      * @param {{(begin: number, end: number): ScalarSampler}} ease
      */
-    modiyScale(from, to, ease) {
+    modifyScale(from, to, ease) {
         this.emitter.sizeModifier = ease(from, to);;
         return this;
     }
@@ -116,7 +116,7 @@ export class Particle {
         if (this.emitter.scaleDelta.pinLastValue() != 0) {
             Diagnostics.log(`The particle "${this.emitter.name}" will not scale out perfectly if its "scale delta" is not "0"`);
         }
-        this.modiyScale(0, this.emitter.scale.mul(this.emitter.scaleDelta.add(1)).neg().pinLastValue(), ease);
+        this.modifyScale(0, this.emitter.scale.mul(this.emitter.scaleDelta.add(1)).neg().pinLastValue(), ease);
         return this;
     }
 
@@ -124,7 +124,7 @@ export class Particle {
      * @param {{(begin: number, end: number): ScalarSampler}} ease
      */
     setFadeout(ease = Ease.easeInCubic) {
-        this.modiyAlpha(1, 0, ease);
+        this.modifyAlpha(1, 0, ease);
         return this;
     }
 
@@ -231,9 +231,9 @@ Particle.findByPath = class {
      * @param {number} end 
      * @param {{(begin: number, end: number): ScalarSampler}} ease
      */
-    modiyHue(begin, end, ease) {
+    modifyHue(begin, end, ease) {
         this.particlesPromise.then(() => {
-            this.particles.forEach(em => em.modiyHue(begin, end, ease));
+            this.particles.forEach(em => em.modifyHue(begin, end, ease));
         });
         return this;
     }
@@ -243,9 +243,9 @@ Particle.findByPath = class {
      * @param {number} end 
      * @param {{(begin: number, end: number): ScalarSampler}} ease
      */
-    modiySaturation(begin, end, ease) {
+    modifySaturation(begin, end, ease) {
         this.particlesPromise.then(() => {
-            this.particles.forEach(em => em.modiySaturation(begin, end, ease));
+            this.particles.forEach(em => em.modifySaturation(begin, end, ease));
         });
         return this;
     }
@@ -255,9 +255,9 @@ Particle.findByPath = class {
      * @param {number} end 
      * @param {{(begin: number, end: number): ScalarSampler}} ease
      */
-    modiyValue(begin, end, ease) {
+    modifyValue(begin, end, ease) {
         this.particlesPromise.then(() => {
-            this.particles.forEach(em => em.modiyValue(begin, end, ease));
+            this.particles.forEach(em => em.modifyValue(begin, end, ease));
         });
         return this;
     }
@@ -267,9 +267,9 @@ Particle.findByPath = class {
      * @param {number} end 
      * @param {{(begin: number, end: number): ScalarSampler}} ease
      */
-    modiyAlpha(begin, end, ease) {
+    modifyAlpha(begin, end, ease) {
         this.particlesPromise.then(() => {
-            this.particles.forEach(em => em.modiyAlpha(begin, end, ease));
+            this.particles.forEach(em => em.modifyAlpha(begin, end, ease));
         });
         return this;
     }
@@ -279,9 +279,9 @@ Particle.findByPath = class {
      * @param {number} to 
      * @param {{(begin: number, end: number): ScalarSampler}} ease
      */
-    modiyScale(from, to, ease) {
+    modifyScale(from, to, ease) {
         this.particlesPromise.then(() => {
-            this.particles.forEach(em => em.modiyScale(from, to, ease));
+            this.particles.forEach(em => em.modifyScale(from, to, ease));
         });
         return this;
     }
@@ -391,9 +391,9 @@ Particle.findAll = class {
      * @param {number} end 
      * @param {{(begin: number, end: number): ScalarSampler}} ease
      */
-    modiyHue(begin, end, ease) {
+    modifyHue(begin, end, ease) {
         this.particlesPromise.then(() => {
-            this.particles.forEach(em => em.modiyHue(begin, end, ease));
+            this.particles.forEach(em => em.modifyHue(begin, end, ease));
         });
         return this;
     }
@@ -403,9 +403,9 @@ Particle.findAll = class {
      * @param {number} end 
      * @param {{(begin: number, end: number): ScalarSampler}} ease
      */
-    modiySaturation(begin, end, ease) {
+    modifySaturation(begin, end, ease) {
         this.particlesPromise.then(() => {
-            this.particles.forEach(em => em.modiySaturation(begin, end, ease));
+            this.particles.forEach(em => em.modifySaturation(begin, end, ease));
         });
         return this;
     }
@@ -415,9 +415,9 @@ Particle.findAll = class {
      * @param {number} end 
      * @param {{(begin: number, end: number): ScalarSampler}} ease
      */
-    modiyValue(begin, end, ease) {
+    modifyValue(begin, end, ease) {
         this.particlesPromise.then(() => {
-            this.particles.forEach(em => em.modiyValue(begin, end, ease));
+            this.particles.forEach(em => em.modifyValue(begin, end, ease));
         });
         return this;
     }
@@ -427,9 +427,9 @@ Particle.findAll = class {
      * @param {number} end 
      * @param {{(begin: number, end: number): ScalarSampler}} ease
      */
-    modiyAlpha(begin, end, ease) {
+    modifyAlpha(begin, end, ease) {
         this.particlesPromise.then(() => {
-            this.particles.forEach(em => em.modiyAlpha(begin, end, ease));
+            this.particles.forEach(em => em.modifyAlpha(begin, end, ease));
         });
         return this;
     }
@@ -439,9 +439,9 @@ Particle.findAll = class {
      * @param {number} to 
      * @param {{(begin: number, end: number): ScalarSampler}} ease
      */
-    modiyScale(from, to, ease) {
+    modifyScale(from, to, ease) {
         this.particlesPromise.then(() => {
-            this.particles.forEach(em => em.modiyScale(from, to, ease));
+            this.particles.forEach(em => em.modifyScale(from, to, ease));
         });
         return this;
     }
@@ -551,9 +551,9 @@ Particle.findFirst = class {
      * @param {number} end 
      * @param {{(begin: number, end: number): ScalarSampler}} ease
      */
-    modiyHue(begin, end, ease) {
+    modifyHue(begin, end, ease) {
         this.particlePromise.then(() => {
-            this.particle.modiyHue(begin, end, ease);
+            this.particle.modifyHue(begin, end, ease);
         })
         return this;
     }
@@ -563,9 +563,9 @@ Particle.findFirst = class {
      * @param {number} end 
      * @param {{(begin: number, end: number): ScalarSampler}} ease
      */
-    modiySaturation(begin, end, ease) {
+    modifySaturation(begin, end, ease) {
         this.particlePromise.then(() => {
-            this.particle.modiySaturation(begin, end, ease);
+            this.particle.modifySaturation(begin, end, ease);
         });
         return this;
     }
@@ -575,9 +575,9 @@ Particle.findFirst = class {
      * @param {number} end 
      * @param {{(begin: number, end: number): ScalarSampler}} ease
      */
-    modiyValue(begin, end, ease) {
+    modifyValue(begin, end, ease) {
         this.particlePromise.then(() => {
-            this.particle.modiyValue(begin, end, ease);
+            this.particle.modifyValue(begin, end, ease);
         });
         return this;
     }
@@ -587,9 +587,9 @@ Particle.findFirst = class {
      * @param {number} end 
      * @param {{(begin: number, end: number): ScalarSampler}} ease
      */
-    modiyAlpha(begin, end, ease) {
+    modifyAlpha(begin, end, ease) {
         this.particlePromise.then(() => {
-            this.particle.modiyAlpha(begin, end, ease);
+            this.particle.modifyAlpha(begin, end, ease);
         });
         return this;
     }
@@ -599,9 +599,9 @@ Particle.findFirst = class {
      * @param {number} to 
      * @param {{(begin: number, end: number): ScalarSampler}} ease
      */
-    modiyScale(from, to, ease) {
+    modifyScale(from, to, ease) {
         this.particlePromise.then(() => {
-            this.particle.modiyScale(from, to, ease);
+            this.particle.modifyScale(from, to, ease);
         });
         return this;
     }
